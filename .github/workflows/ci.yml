@@ -95,6 +95,11 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/checkout@v4
+        with:
+          # gitleaks-action scans the PR commit range (<first-commit>^..<head>); a shallow clone
+          # lacks the first commit's parent, so git fails with "ambiguous argument". Full history
+          # (fetch-depth: 0) lets the range resolve. Only this job needs it.
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
