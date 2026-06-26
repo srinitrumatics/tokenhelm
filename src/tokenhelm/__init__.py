@@ -41,7 +41,7 @@ from .sdk.context import StreamSession, TraceScope
 from .storage.base import StorageBackend
 from .storage.memory import InMemoryStorageBackend
 
-__version__ = "0.1.0"  # x-release-please-version
+__version__ = "0.1.0rc1"  # x-release-please-version
 
 __all__ = [
     "__version__",
