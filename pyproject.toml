@@ -49,6 +49,10 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
+# UP042: LLMProvider deliberately subclasses (str, Enum) with an explicit __str__ for broad
+# compatibility and stable value semantics. Migrating to enum.StrEnum is a deferrable cleanup,
+# not done right before the v0.1 release (it changes a public type's base class).
+ignore = ["UP042"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

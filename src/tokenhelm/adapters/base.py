@@ -70,6 +70,4 @@ class BaseAdapter(abc.ABC):
 
     def new_stream_aggregator(self) -> StreamAggregator:
         """Return a fresh :class:`StreamAggregator` for one stream. v0.1 default: unsupported."""
-        raise NotImplementedError(
-            f"{type(self).__name__} does not support streaming aggregation."
-        )
+        raise NotImplementedError(f"{type(self).__name__} does not support streaming aggregation.")

@@ -83,9 +83,11 @@ def test_scope_latency_is_measured(openai_response):
 
 def test_unpriced_model_degrades(openai_response):
     """FR-013: model absent from pricing -> priced False, cost 0, no error."""
-    resp = SimpleNamespace(object="chat.completion", model="gpt-unknown-9000",
-                           usage=SimpleNamespace(prompt_tokens=10, completion_tokens=20,
-                                                 total_tokens=30))
+    resp = SimpleNamespace(
+        object="chat.completion",
+        model="gpt-unknown-9000",
+        usage=SimpleNamespace(prompt_tokens=10, completion_tokens=20, total_tokens=30),
+    )
     event = _silent().track(resp)
     assert event.priced is False
     assert event.cost == Decimal("0")

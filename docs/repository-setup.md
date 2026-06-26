@@ -30,6 +30,7 @@ Use these job names from `ci.yml` (names appear after the first CI run):
 - `Lint (ruff)`
 - `Test (py3.11 / ubuntu-latest)`, `Test (py3.12 / ubuntu-latest)`, `Test (py3.13 / ubuntu-latest)`
 - `Test (py3.12 / windows-latest)`, `Test (py3.12 / macos-latest)` (at minimum one of each OS)
+- `Benchmarks` (median-based budget checks; runs once on ubuntu)
 - `Build & verify distribution`
 - `PR Title (Conventional Commits)` → `validate`
 

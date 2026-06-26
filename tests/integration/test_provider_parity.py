@@ -88,8 +88,9 @@ def test_ollama_zero_rate_cost_is_zero_without_error(ollama_response):
 def test_unlisted_ollama_model_is_unpriced(ollama_response):
     from types import SimpleNamespace
 
-    resp = SimpleNamespace(model="some-random-local-model", done=True,
-                           prompt_eval_count=10, eval_count=20)
+    resp = SimpleNamespace(
+        model="some-random-local-model", done=True, prompt_eval_count=10, eval_count=20
+    )
     event = _silent().track(resp)
     assert event.provider is LLMProvider.OLLAMA
     assert event.priced is False
