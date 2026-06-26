@@ -1,0 +1,6 @@
+[
+  { "model_version": "gemini-2.5-pro", "candidates": [{ "content": { "parts": [{ "text": "Hello" }] } }] },
+  { "model_version": "gemini-2.5-pro", "candidates": [{ "content": { "parts": [{ "text": " world" }] } }] },
+  { "model_version": "gemini-2.5-pro", "candidates": [{ "content": { "parts": [{ "text": "!" }] } }],
+    "usage_metadata": { "prompt_token_count": 1000, "candidates_token_count": 500, "total_token_count": 1500 } }
+]

@@ -1,0 +1,30 @@
+name: Sync labels
+
+# Keeps repository labels in sync with .github/labels.yml. Runs when that file changes,
+# or on demand. `dry-run` previews changes without applying them.
+
+on:
+  push:
+    branches: [main]
+    paths: [".github/labels.yml"]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: "Preview only (don't apply)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  labeler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: crazy-max/ghaction-github-labeler@v5
+        with:
+          yaml-file: .github/labels.yml
+          skip-delete: true # keep labels not listed here (e.g. GitHub defaults you still use)
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run || false }}

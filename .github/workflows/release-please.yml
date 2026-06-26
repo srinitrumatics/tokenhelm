@@ -1,0 +1,23 @@
+name: release-please
+
+# Automated, Conventional-Commits-driven releases. On every push to main, release-please
+# maintains a "release PR" that bumps the version and updates CHANGELOG.md from commit history.
+# Merging that PR creates the vX.Y.Z tag + GitHub Release, which triggers release.yml to build
+# and publish to PyPI via Trusted Publishing (OIDC).
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

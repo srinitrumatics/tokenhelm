@@ -1,0 +1,7 @@
+[
+  { "object": "chat.completion.chunk", "model": "gpt-4o", "choices": [{ "delta": { "role": "assistant" } }] },
+  { "object": "chat.completion.chunk", "model": "gpt-4o", "choices": [{ "delta": { "content": "Hello" } }] },
+  { "object": "chat.completion.chunk", "model": "gpt-4o", "choices": [{ "delta": { "content": " world" } }] },
+  { "object": "chat.completion.chunk", "model": "gpt-4o", "choices": [],
+    "usage": { "prompt_tokens": 1000, "completion_tokens": 500, "total_tokens": 1500 } }
+]

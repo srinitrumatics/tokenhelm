@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    ".": {
+      "release-type": "python",
+      "package-name": "tokenhelm",
+      "changelog-path": "CHANGELOG.md",
+      "include-component-in-tag": false,
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true,
+      "draft": false,
+      "prerelease": false,
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "src/tokenhelm/__init__.py"
+        }
+      ],
+      "changelog-sections": [
+        { "type": "feat", "section": "Added" },
+        { "type": "fix", "section": "Fixed" },
+        { "type": "perf", "section": "Performance" },
+        { "type": "deprecate", "section": "Deprecated" },
+        { "type": "revert", "section": "Reverted" },
+        { "type": "docs", "section": "Documentation", "hidden": true },
+        { "type": "refactor", "section": "Changed", "hidden": true },
+        { "type": "test", "section": "Tests", "hidden": true },
+        { "type": "chore", "section": "Chore", "hidden": true }
+      ]
+    }
+  }
+}

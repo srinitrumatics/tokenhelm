@@ -1,0 +1,59 @@
+# Recommended GitHub issue/PR labels for TokenHelm.
+# Apply automatically via .github/workflows/labels.yml (crazy-max/ghaction-github-labeler),
+# or import manually. Colors are 6-digit hex without '#'.
+
+# --- type ---
+- name: bug
+  color: d73a4a
+  description: Something isn't working
+- name: enhancement
+  color: a2eeef
+  description: New feature or request
+- name: documentation
+  color: 0075ca
+  description: Improvements or additions to documentation
+- name: question
+  color: d876e3
+  description: Further information is requested
+
+# --- contributor onboarding ---
+- name: good first issue
+  color: 7057ff
+  description: Good for newcomers
+- name: help wanted
+  color: 008672
+  description: Extra attention is needed
+
+# --- domain areas ---
+- name: performance
+  color: fbca04
+  description: Tracking overhead, latency, or memory budgets
+- name: security
+  color: b60205
+  description: Security-related report or hardening
+- name: adapters
+  color: 1d76db
+  description: Provider adapters (OpenAI / Gemini / Anthropic / Ollama / custom)
+- name: streaming
+  color: 5319e7
+  description: Streaming and async tracking
+- name: analytics
+  color: 0e8a16
+  description: Analytics / metrics (roadmap area)
+
+# --- planning / process ---
+- name: roadmap
+  color: c5def5
+  description: Planned work tied to the roadmap
+- name: "breaking change"
+  color: e11d21
+  description: Backwards-incompatible change (requires a major version bump)
+- name: triage
+  color: ededed
+  description: Needs triage / initial review
+- name: dependencies
+  color: 0366d6
+  description: Dependency updates (Dependabot)
+- name: ci
+  color: bfdadc
+  description: CI / build / release automation

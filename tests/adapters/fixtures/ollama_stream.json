@@ -1,0 +1,7 @@
+[
+  { "model": "llama3.3", "done": false, "message": { "role": "assistant", "content": "Hello" } },
+  { "model": "llama3.3", "done": false, "message": { "role": "assistant", "content": " world" } },
+  { "model": "llama3.3", "done": true, "done_reason": "stop",
+    "message": { "role": "assistant", "content": "" },
+    "prompt_eval_count": 1000, "eval_count": 500 }
+]

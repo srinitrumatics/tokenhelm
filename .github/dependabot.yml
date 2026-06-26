@@ -1,0 +1,27 @@
+version: 2
+updates:
+  # Python dependencies declared in pyproject.toml (runtime + dev extras).
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels: ["dependencies"]
+    commit-message:
+      prefix: "build"          # Conventional Commits -> shows under build/chore
+    groups:
+      python-dev:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  # GitHub Actions used in workflows.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels: ["ci", "dependencies"]
+    commit-message:
+      prefix: "ci"
+    groups:
+      actions:
+        patterns: ["*"]

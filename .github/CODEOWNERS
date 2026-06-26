@@ -1,0 +1,20 @@
+# Code owners — requested as reviewers automatically on matching changes.
+# See https://docs.github.com/articles/about-code-owners
+
+# Default owner for everything in the repo.
+*                       @quadkeys
+
+# Public API surface and architecture-critical areas warrant extra scrutiny.
+/src/tokenhelm/__init__.py        @quadkeys
+/src/tokenhelm/sdk/               @quadkeys
+/src/tokenhelm/core/models.py     @quadkeys
+/src/tokenhelm/adapters/base.py   @quadkeys
+/src/tokenhelm/pricing/base.py    @quadkeys
+/src/tokenhelm/dispatch/base.py   @quadkeys
+/src/tokenhelm/logging/base.py    @quadkeys
+/src/tokenhelm/storage/base.py    @quadkeys
+
+# Release engineering and CI.
+/.github/                @quadkeys
+/pyproject.toml          @quadkeys
+/release-please-config.json   @quadkeys
