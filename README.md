@@ -174,6 +174,23 @@ observe-don't-patch · one standardized event · everything replaceable.
 See `specs/001-core-sdk/` for the constitution, spec, plan, data model, and public API
 contract.
 
+## Release Process
+
+Releases follow a documented, automated procedure (Conventional Commits → release-please →
+Trusted Publishing on PyPI via OIDC). The canonical, end-to-end release procedure is the
+**[Go-Live & Release checklist](docs/go-live-checklist.md)** — follow it for every release.
+
+Supporting docs:
+
+- [`docs/releasing.md`](docs/releasing.md) — how publishing works (TestPyPI → PyPI, OIDC).
+- [`docs/repository-setup.md`](docs/repository-setup.md) — branch protection, required checks,
+  Dependabot, security features.
+- [`docs/release-checklist.md`](docs/release-checklist.md) — per-version quality gates.
+
+Contributors: see [`CONTRIBUTING.md`](CONTRIBUTING.md) for the dev workflow, versioning, and
+deprecation policy.
+
 ## License
 
 MIT
+
