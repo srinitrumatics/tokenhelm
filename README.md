@@ -65,6 +65,14 @@ tracker = TokenHelm(pricing={"openai": {"gpt-4o": {"input": 2.5, "output": 10.0}
 
 # 5. Reconfigure later without rebuilding
 tracker.configure(currency="EUR")
+
+# 6. Streaming — exactly one event after the stream is exhausted
+for chunk in tracker.track_stream(client.chat.completions.create(..., stream=True)):
+    ...   # consume chunks as usual
+
+# 7. Async — same API with `async with` / `async for`
+async with tracker.trace() as scope:
+    scope.track(await aclient.chat.completions.create(...))
 ```
 
 Every tracked request yields the same normalized **`LLMEvent`** with the eight mandated
@@ -118,7 +126,7 @@ interfaces, never on a concrete implementation.
 
 | # | Interface | Default | Swap it to… |
 |---|-----------|---------|-------------|
-| ① | `BaseAdapter` | OpenAI (US1); Gemini/Anthropic/Ollama (US2) | add a new provider |
+| ① | `BaseAdapter` | OpenAI, Gemini, Anthropic, Ollama | add a new provider |
 | ② | `PricingProvider` | `YamlPricingProvider` | remote/dynamic pricing, AI FinOps |
 | ③ | `EventDispatcher` | `DefaultEventDispatcher` | custom routing/batching/export |
 | ④ | `Logger` | `ConsoleLogger` | JSON/file/metrics/dashboards |
@@ -140,29 +148,41 @@ behind these interfaces — they require no change to the core.
 
 ## Supported Providers
 
+All four providers are supported, with streaming and async, in v0.1.0.
+
 | Provider | Status | Usage fields read |
 |----------|--------|-------------------|
-| **OpenAI** | ✅ available | `usage.prompt_tokens` / `completion_tokens` (Chat); `input_tokens` / `output_tokens` (Responses) |
-| **Google Gemini** | 🚧 Phase 4 (US2) | `usage_metadata.prompt_token_count` / `candidates_token_count` |
-| **Anthropic** | 🚧 Phase 4 (US2) | `usage.input_tokens` / `output_tokens` (+ cache token extras) |
-| **Ollama** (local) | 🚧 Phase 4 (US2) | `prompt_eval_count` / `eval_count` |
+| **OpenAI** | ✅ supported | `usage.prompt_tokens` / `completion_tokens` (Chat); `input_tokens` / `output_tokens` (Responses) |
+| **Google Gemini** | ✅ supported | `usage_metadata.prompt_token_count` / `candidates_token_count` |
+| **Anthropic** | ✅ supported | `usage.input_tokens` / `output_tokens` (+ cache token extras) |
+| **Ollama** (local) | ✅ supported | `prompt_eval_count` / `eval_count` |
 
 All providers normalize into the **same** `LLMEvent` schema — switching providers is a
-configuration change, not a code change.
+configuration change, not a code change. Each adapter handles both completed responses and
+streaming.
 
 ---
 
 ## Roadmap
 
-- [x] **US1 — Track one provider (MVP):** OpenAI adapter, cost calculation, normalized event,
-      scoped `trace()`, console logging, graceful degradation. *(96% test coverage)*
-- [ ] **US2 — Provider parity:** Gemini, Anthropic, Ollama adapters; identical event shape.
-- [ ] **US3 — Output choice:** `JSONLogger`, `FileLogger`, `InMemoryStorageBackend`, full
-      `configure()` and multi-sink dispatch.
-- [ ] **US4 — Streaming & async:** `track_stream()` (one final event), async `trace()`.
-- [ ] **Hardening:** <5 ms / <20 MB benchmarks, thread/async isolation suite, docs, PyPI release.
-- [ ] **Beyond v0.1 (out of core scope, enabled by the extension points):** analytics,
-      prompt intelligence, AI FinOps, dashboards — all as downstream `LLMEvent` consumers.
+**v0.1.0 — Core SDK ✅ (current)**
+
+- [x] Track usage and cost across one provider (MVP): cost calculation, normalized event,
+      scoped `trace()`, console logging, graceful degradation.
+- [x] Provider parity: OpenAI, Gemini, Anthropic, Ollama adapters; identical event shape.
+- [x] Output choice: `JSONLogger`, `FileLogger`, `InMemoryStorageBackend`, full `configure()`
+      and multi-sink dispatch.
+- [x] Streaming & async: `track_stream()` (one final event), async `trace()`.
+- [x] Hardening: <5 ms / <20 MB budgets, thread/async isolation suite, docs, packaging.
+
+**Beyond v0.1** — each tier is additive on the five extension points; the v0.1 core API does
+not change. See [`ROADMAP.md`](ROADMAP.md).
+
+- [ ] **v0.2 — Analytics SDK** (`SQLiteStorageBackend` + usage queries)
+- [ ] **v0.3 — Prompt Intelligence** (per-prompt/template attribution)
+- [ ] **v0.4 — RAG Intelligence** (retrieval-aware accounting)
+- [ ] **v0.5 — AI FinOps** (budgets, alerts, remote pricing)
+- [ ] **v1.0 — Enterprise Platform** (stabilize the v0.x surface; dashboard, plugins)
 
 ---
 
