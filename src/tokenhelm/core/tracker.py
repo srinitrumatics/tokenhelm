@@ -82,9 +82,7 @@ class TokenTracker:
         if scope is not None:
             latency = max(0.0, LatencyTracker.now() - scope.started_perf)
 
-        return self._emit(
-            provider, model, usage, latency=latency, streamed=streamed, scope=scope
-        )
+        return self._emit(provider, model, usage, latency=latency, streamed=streamed, scope=scope)
 
     def emit_stream(
         self,

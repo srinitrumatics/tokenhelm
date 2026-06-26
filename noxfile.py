@@ -36,7 +36,7 @@ def install(session: nox.Session) -> None:
 @nox.session
 def lint(session: nox.Session) -> None:
     """Check formatting and lint rules (no changes)."""
-    session.install("ruff>=0.8")
+    session.install("ruff==0.15.20")  # keep in sync with ci.yml and .pre-commit-config.yaml
     session.run("ruff", "check", *LINT_PATHS)
     session.run("ruff", "format", "--check", *LINT_PATHS)
 
@@ -44,7 +44,7 @@ def lint(session: nox.Session) -> None:
 @nox.session
 def format(session: nox.Session) -> None:
     """Auto-format and apply safe lint fixes."""
-    session.install("ruff>=0.8")
+    session.install("ruff==0.15.20")  # keep in sync with ci.yml and .pre-commit-config.yaml
     session.run("ruff", "format", *LINT_PATHS)
     session.run("ruff", "check", "--fix", *LINT_PATHS)
 

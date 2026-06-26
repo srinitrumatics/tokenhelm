@@ -69,8 +69,17 @@ def test_json_logger_receives_only_event_dict_keys():
     JSONLogger(stream).log(_event())
     payload = json.loads(stream.getvalue())
     assert set(payload.keys()) == {
-        "provider", "model", "input_tokens", "output_tokens", "total_tokens",
-        "latency", "cost", "timestamp", "usage_complete", "priced", "currency",
+        "provider",
+        "model",
+        "input_tokens",
+        "output_tokens",
+        "total_tokens",
+        "latency",
+        "cost",
+        "timestamp",
+        "usage_complete",
+        "priced",
+        "currency",
     }
 
 
