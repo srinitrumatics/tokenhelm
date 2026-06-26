@@ -57,7 +57,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: python -m pip install -e ".[dev]"
-      - run: pytest -m benchmark -q -s
+      # --no-cov: the coverage gate (--cov-fail-under=90 in pyproject addopts) applies to every
+      # pytest run; a benchmark-only run covers ~64% and would fail the job. Coverage is enforced
+      # in the matrix `test` job, not here. This job only checks the performance budget.
+      - run: pytest -m benchmark -q -s --no-cov
 
   build:
     name: Build & verify distribution
@@ -99,7 +102,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip-audit
           python -m pip install -e .
-          pip-audit --strict --desc      # audits the installed environment (runtime deps)
+          # --skip-editable: don't audit tokenhelm itself (editable install, not yet on PyPI).
+          # No --strict: --strict fails when ANY dep can't be audited, which includes the skipped
+          # editable package — a false positive on our own code. pip-audit still exits non-zero on
+          # a real CVE in a runtime dependency, so the vulnerability gate is unchanged.
+          pip-audit --desc --skip-editable   # audits runtime deps (PyYAML); skips the local pkg
       - name: Secret scan (gitleaks)
         uses: gitleaks/gitleaks-action@v2
         env:
